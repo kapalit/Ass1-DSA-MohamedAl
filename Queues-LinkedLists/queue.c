@@ -1,39 +1,37 @@
+// queue_ops.c
 #include "queue.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-// Initialize an empty queue by setting head and tail to NULL.
 void initQueue(Queue* q) {
     q->head = NULL;
     q->tail = NULL;
 }
 
-// Check if the queue is empty by verifying if the head is NULL.
 int isEmpty(Queue* q) {
     return q->head == NULL;
 }
 
-// Add a user to the end of the queue.
-void enqueue(Queue* q, User user) {
-    Node* newNode = (Node*)malloc(sizeof(Node));  // Create a new node
+int enqueue(Queue* q, User user) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
     if (newNode == NULL) {
-        perror("Memory allocation failed");
-        exit(EXIT_FAILURE);
+        perror("Failed to allocate memory for new node");
+        return -1;  
     }
-    newNode->data = user;  // Set the user data
-    newNode->next = NULL;  // Next node is NULL initially
+    newNode->data = user;
+    newNode->next = NULL;
 
-    if (q->tail != NULL) {  // If queue is not empty, append the new node
+    if (q->tail != NULL) {
         q->tail->next = newNode;
     }
-    q->tail = newNode;  // The new node is now the last node
+    q->tail = newNode;
 
-    if (q->head == NULL) {  // If the queue was empty, new node is also the head
+    if (q->head == NULL) {
         q->head = newNode;
     }
+    return 0;  
 }
 
-// Remove and return a user from the front of the queue.
 User dequeue(Queue* q) {
     if (isEmpty(q)) {
         fprintf(stderr, "Attempt to dequeue from an empty queue\n");

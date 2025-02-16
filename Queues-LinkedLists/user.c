@@ -1,7 +1,7 @@
+// user_ops.c
 #include "queue.h"
 #include <stdlib.h>
 
-// Generate a random user with a random username, level, and faction.
 User generateRandomUser() {
     User user;
     const char* factions = "RBG";  // Possible factions
@@ -19,4 +19,14 @@ User generateRandomUser() {
     user.faction = factions[rand() % 3];
 
     return user;
+}
+
+int enqueueMultipleUsers(Queue* q, int numberOfUsers) {
+    for (int i = 0; i < numberOfUsers; i++) {
+        User newUser = generateRandomUser();
+        if (enqueue(q, newUser) != 0) {
+            return -1; 
+        }
+    }
+    return 0; 
 }
