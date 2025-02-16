@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="main.c" />
     <ClCompile Include="queue.c" />
     <ClCompile Include="user.c" />
   </ItemGroup>
