@@ -32,3 +32,22 @@ void enqueue(Queue* q, User user) {
         q->head = newNode;
     }
 }
+
+// Remove and return a user from the front of the queue.
+User dequeue(Queue* q) {
+    if (isEmpty(q)) {
+        fprintf(stderr, "Attempt to dequeue from an empty queue\n");
+        exit(EXIT_FAILURE);
+    }
+
+    Node* temp = q->head;  // Temporarily store the head node
+    User user = temp->data;  // Get user data from head
+    q->head = q->head->next;  // Move head to next node
+
+    if (q->head == NULL) {  // If the queue is now empty, update tail
+        q->tail = NULL;
+    }
+
+    free(temp);  // Free the removed head node
+    return user;
+}
